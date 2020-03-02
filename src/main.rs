@@ -34,12 +34,18 @@ fn run() -> Result<(), Box<dyn Error>> {
 
     println!("Original length: {}", vec.len());
 
+    let has_prereqs = filter_prereqs(vec);
+
+    println!("New length: {}", has_prereqs.len());
+
+    Ok(())
+}
+
+fn filter_prereqs(vec: Vec<CourseRequirements>) -> Vec<CourseRequirements> {
     let has_prereqs: Vec<CourseRequirements> = vec
         .into_iter()
         .filter(|course| course.CRS_PREREQ != " ")
         .collect();
 
-    println!("New length: {}", has_prereqs.len());
-
-    Ok(())
+    has_prereqs
 }
