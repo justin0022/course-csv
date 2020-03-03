@@ -32,11 +32,17 @@ fn run() -> Result<(), Box<dyn Error>> {
         vec.push(record);
     }
 
-    println!("Original length: {}", vec.len());
+    // println!("Original length: {}", vec.len());
 
     let has_prereqs = filter_prereqs(vec);
 
-    println!("New length: {}", has_prereqs.len());
+    // println!("New length: {}", has_prereqs.len());
+
+    let uniq = filter_uniq(has_prereqs);
+
+    for record in uniq.iter() {
+        println!("{}", record);
+    }
 
     Ok(())
 }
@@ -48,4 +54,15 @@ fn filter_prereqs(vec: Vec<CourseRequirements>) -> Vec<CourseRequirements> {
         .collect();
 
     has_prereqs
+}
+
+fn filter_uniq(vec: Vec<CourseRequirements>) -> Vec<String> {
+    let mut uniq = vec
+        .into_iter()
+        .map(|course| course.CRS_PREREQ)
+        .collect::<Vec<String>>();
+
+    uniq.sort();
+    uniq.dedup();
+    uniq
 }
