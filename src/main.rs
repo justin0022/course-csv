@@ -1,6 +1,7 @@
 use std::error::Error;
 use std::io;
 use std::process;
+use std::collections::HashSet;
 
 use serde::Deserialize;
 
@@ -57,12 +58,9 @@ fn filter_prereqs(vec: Vec<CourseRequirements>) -> Vec<CourseRequirements> {
 }
 
 fn filter_uniq(vec: Vec<CourseRequirements>) -> Vec<String> {
-    let mut uniq = vec
-        .into_iter()
+    vec.into_iter()
         .map(|course| course.CRS_PREREQ)
-        .collect::<Vec<String>>();
-
-    uniq.sort();
-    uniq.dedup();
-    uniq
+        .collect::<HashSet<_>>()
+        .into_iter()
+        .collect()
 }
