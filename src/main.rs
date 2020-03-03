@@ -49,12 +49,10 @@ fn run() -> Result<(), Box<dyn Error>> {
 }
 
 fn filter_prereqs(vec: Vec<CourseRequirements>) -> Vec<CourseRequirements> {
-    let has_prereqs: Vec<CourseRequirements> = vec
+    vec
         .into_iter()
         .filter(|course| course.CRS_PREREQ != " ")
-        .collect();
-
-    has_prereqs
+        .collect()
 }
 
 fn filter_uniq(vec: Vec<CourseRequirements>) -> Vec<String> {
